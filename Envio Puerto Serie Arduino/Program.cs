@@ -2,9 +2,9 @@
 using System.Windows.Forms;
 
 namespace Puerto_Serie_Arduino {
-    static class Program {
+    public static class Program {
         /// <summary>
-        /// Punto de entrada principal para la aplicación.
+        /// Método Main.
         /// </summary>
         [STAThread]
         static void Main() {

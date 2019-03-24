@@ -4,17 +4,29 @@ using System.Windows.Forms;
 
 namespace Puerto_Serie_Arduino {
     public partial class Interfaz : Form {
+        /// <summary>
+        /// Variable para referencial el puerto serial.
+        /// </summary>
         private SerialPort serialPort;
+        /// <summary>
+        /// Constructor: inicializa la interfaz, inicializa el objeto SerialPort y Actualiza el ComboBox con los puertos disponibles.
+        /// </summary>
         public Interfaz() {
             this.InitializeComponent();
             this.serialPort = new SerialPort();
             this.ActualizarPuertos();
         }
 
+        /// <summary>
+        /// Evento al presionar el Botón de Actualizar.
+        /// </summary>
         private void Bactualizar_Click(object sender, EventArgs e) {
             this.ActualizarPuertos();
-        }
+        } 
 
+        /// <summary>
+        /// Evento al presionar el Botón de Conectar.
+        /// </summary>
         private void Bconectar_Click(object sender, EventArgs e) {
             if (!serialPort.IsOpen) {
                 try {
@@ -35,10 +47,16 @@ namespace Puerto_Serie_Arduino {
             }
         }
 
+        /// <summary>
+        /// Evento al presionar el Botón de Enviar.
+        /// </summary>
         private void Benviar_Click(object sender, EventArgs e) {
             EnviarDato();
         }
 
+        /// <summary>
+        /// Evento al presionar una tecla mientras se está haciendo focus en el TextBox.
+        /// </summary>
         private void TBdato_TextEnter(object sender, KeyPressEventArgs e) {
             if (e.KeyChar == (int)Keys.Enter) {
                 EnviarDato();
@@ -46,19 +64,25 @@ namespace Puerto_Serie_Arduino {
             }
         }
 
+        /// <summary>
+        /// Método que actualiza el ComboBox con la lista de puertos serial disponibles.
+        /// </summary>
         private void ActualizarPuertos() {
             this.CBpuertos.Items.Clear();
             this.CBpuertos.Items.AddRange(SerialPort.GetPortNames());
             this.CBpuertos.SelectedItem = SerialPort.GetPortNames()[0];
         }
 
+        /// <summary>
+        /// Método que envía un dato de tipo String por el puerto serial ya establecido.
+        /// </summary>
         private void EnviarDato() {
             try {
                 this.serialPort.Write(this.TBdato.Text);
                 this.TBdato.Text = "";
                 this.Lestado.Text = "Dato enviado correctamente.";
             } catch (Exception) {
-                this.Lestado.Text = "No hay conexión establecida a través del puerto serial.";
+                this.Lestado.Text = "No hay conexión establecida.";
             }
         }
     }
