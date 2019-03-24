@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO.Ports;
+using System.Media;
 using System.Windows.Forms;
 
 namespace Puerto_Serie_Arduino {
+
     public partial class Interfaz : Form {
         /// <summary>
         /// Variable para referencial el puerto serial.
@@ -38,6 +40,7 @@ namespace Puerto_Serie_Arduino {
                     this.Lestado.Text = "Conexión establecida.";
                 } catch (Exception) {
                     this.Lestado.Text = "Error al conectarse con el puerto serie " + CBpuertos.SelectedItem.ToString() + ".";
+                    SystemSounds.Hand.Play();
                 }
             } else {
                 this.serialPort.Close();
